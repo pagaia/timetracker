@@ -12,7 +12,7 @@ const ADD_TASK_FORM = "ADD_TASK_FORM";
 let AddTask = props => {
   const addTask = e => {
     e.preventDefault();
-    props.changeField("newtask", "");
+    props.changeField(ADD_TASK_FORM,"newtask", "");
     props.addTask(props.newtask);
   };
   return (

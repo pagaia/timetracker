@@ -15,7 +15,7 @@ const ButtonLink = ({ action, text, icon, ariaLabel }) => {
   };
   return (
     <a
-      href="#"
+      href="#action"
       onClick={execAction}
       className="button-action"
       aria-label={ariaLabel}

@@ -12,7 +12,7 @@ const ADD_TASK_FORM = "ADD_TASK_FORM";
 let AddTask = props => {
   const addTask = e => {
     e.preventDefault();
-    props.change("newtask", "");
+    props.changeField("newtask", "");
     props.addTask(props.newtask);
   };
   return (
@@ -56,7 +56,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      addTask: actions.addTask
+      addTask: actions.addTask,
+      changeField: change
     },
     dispatch
   );

@@ -1,8 +1,5 @@
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-
-//ReactDOM.render(<App />, document.getElementById('root'));
-
 import mountApp from "./mountApp";
   
 ReactDOM.render(mountApp, document.getElementById("root"))

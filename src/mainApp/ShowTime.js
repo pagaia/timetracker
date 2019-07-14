@@ -18,9 +18,9 @@ class ShowTime extends Component {
 
   render() {
     return (
-      <h2>
+      <h1>
         <DateTimeLabel datetime={this.state.time} />
-      </h2>
+      </h1>
     );
   }
 }

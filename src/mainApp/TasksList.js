@@ -1,10 +1,21 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import Tempo from "../components/Tempo";
 import { actions } from "./index";
 import { bindActionCreators } from "redux";
+import { Button } from "@material-ui/core";
+import ViewTruckedTime from "../components/ViewTruckedTime";
 
-function TasksList({ tasks, activeTask, setActiveTask, removeTask }) {
+function TasksList({
+  tasks,
+  activeTask,
+  setActiveTask,
+  removeTask,
+  forceUpdateFn,
+  forceUpdate,
+  updateTotalTime,
+  totalTime
+}) {
   if (!tasks.length) {
     return (
       <div>
@@ -20,22 +31,49 @@ function TasksList({ tasks, activeTask, setActiveTask, removeTask }) {
       stop={idx !== activeTask}
       activateTask={() => setActiveTask(idx)}
       remove={() => removeTask(idx)}
+      forceUpdate={forceUpdate}
+      updateTotalTime={time => updateTotalTime(idx, time)}
     />
   ));
 
-  return <div className="tasks">{list}</div>;
+  const renderUpdateTotal = () => {
+    return (
+      tasks.length && (
+        <div className="total">
+          <span>
+            <Button variant="contained" color="primary" onClick={forceUpdateFn}>
+              Update time
+            </Button>
+          </span>
+          <span> Time worked:</span>
+          <ViewTruckedTime seconds={totalTime} />
+        </div>
+      )
+    );
+  };
+
+  return (
+    <div className="tasks">
+      {list}
+      {renderUpdateTotal()}
+    </div>
+  );
 }
 
 const mapStateToProps = state => ({
   tasks: state.mainReducer.tasks,
-  activeTask: state.mainReducer.activeTask
+  activeTask: state.mainReducer.activeTask,
+  forceUpdate: state.mainReducer.forceUpdate,
+  totalTime: state.mainReducer.totalTime
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setActiveTask: actions.setActiveTask,
-      removeTask: actions.remove
+      removeTask: actions.remove,
+      forceUpdateFn: actions.forceUpdate,
+      updateTotalTime: actions.updateTotalTime
     },
     dispatch
   );

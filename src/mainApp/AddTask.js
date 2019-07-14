@@ -5,18 +5,18 @@ import { connect } from "react-redux";
 import { actions } from "./index";
 import { bindActionCreators } from "redux";
 import { reduxForm, change } from "redux-form";
-import Button from "../components/Button";
+import Button from "@material-ui/core/Button";
 
 const ADD_TASK_FORM = "ADD_TASK_FORM";
 
 let AddTask = props => {
   const addTask = e => {
     e.preventDefault();
-    props.change( "newtask", '');
+    props.change("newtask", "");
     props.addTask(props.newtask);
   };
   return (
-    <div className="add-task">
+    <form className="add-task">
       <label htmlFor="newtask">Add a task</label>
       <Field
         name="newtask"
@@ -26,8 +26,10 @@ let AddTask = props => {
         placeholder="add a new task"
       />
 
-      <Button action={addTask} text="Add task" />
-    </div>
+      <Button variant="contained" color="primary" type="submit" onClick={addTask} disabled={!props.newtask}>
+        Add task
+      </Button>
+    </form>
   );
 };
 

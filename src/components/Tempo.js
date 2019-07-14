@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Button from "./Button";
 import ViewTruckedTime from "./ViewTruckedTime";
 import PropTypes from "prop-types";
+import { PlayLink, PauseLink, StopLink, RemoveLink } from "./ButtonLink";
 
 const TEMPO_STATUS = {
   STARTED: "STARTED",
@@ -33,6 +33,9 @@ class Tempo extends Component {
       this.state.status === TEMPO_STATUS.STARTED
     ) {
       this.stop();
+    }
+    if (prevProps.forceUpdate !== this.props.forceUpdate) {
+      this.props.updateTotalTime(this.state.time);
     }
   }
 
@@ -79,7 +82,7 @@ class Tempo extends Component {
 
   renderStart() {
     if (!this.state.status) {
-      return <Button action={this.start} text="start" />;
+      return <PlayLink action={this.start} />;
     }
     return null;
   }
@@ -89,14 +92,14 @@ class Tempo extends Component {
       TEMPO_STATUS.PAUSED === this.state.status ||
       TEMPO_STATUS.STOPPED === this.state.status
     ) {
-      return <Button action={this.start} text="continue" />;
+      return <PlayLink action={this.start} />;
     }
     return null;
   }
 
   renderPause() {
     if (TEMPO_STATUS.STARTED === this.state.status) {
-      return <Button action={this.pause} text="pause" />;
+      return <PauseLink action={this.pause} />;
     }
     return null;
   }
@@ -106,7 +109,7 @@ class Tempo extends Component {
       TEMPO_STATUS.STARTED === this.state.status ||
       TEMPO_STATUS.PAUSED === this.state.status
     ) {
-      return <Button action={this.stop} text="stop" />;
+      return <StopLink action={this.stop} />;
     }
     return null;
   }
@@ -121,7 +124,7 @@ class Tempo extends Component {
         {this.renderContinue()}
         {this.renderPause()}
         {this.renderStop()}
-        <Button action={this.props.remove} text="remove" />
+        <RemoveLink action={this.props.remove} />
       </div>
     );
   }

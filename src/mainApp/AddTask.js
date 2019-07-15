@@ -4,14 +4,14 @@ import { Field } from "redux-form";
 import { connect } from "react-redux";
 import { actions } from "./index";
 import { bindActionCreators } from "redux";
-import { reduxForm, change } from "redux-form";
+import { change } from "redux-form";
 import Button from "@material-ui/core/Button";
 import { FORM_NAME } from "./constant";
 
 let AddTask = props => {
   const addTask = e => {
     e.preventDefault();
-    props.changeField(FORM_NAME,"newtask", "");
+    props.changeField(FORM_NAME, "newtask", "");
     props.addTask(props.newtask);
   };
   return (
@@ -25,7 +25,13 @@ let AddTask = props => {
         placeholder="add a new task"
       />
 
-      <Button variant="contained" color="primary" type="submit" onClick={addTask} disabled={!props.newtask}>
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        onClick={addTask}
+        disabled={!props.newtask}
+      >
         Add task
       </Button>
     </form>
@@ -38,7 +44,6 @@ AddTask.propTypes = {
    */
   action: PropTypes.func
 };
-
 
 const mapStateToProps = state => ({
   tasks: state.mainReducer.tasks,

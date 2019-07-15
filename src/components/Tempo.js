@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import ViewTruckedTime from "./ViewTruckedTime";
 import PropTypes from "prop-types";
-import { PlayLink, PauseLink, StopLink, RemoveLink } from "./ButtonLink";
+import { PlayLink, PauseLink, RemoveLink } from "./ButtonLink";
 import TaskName from "./TaskName";
-import AddTask from "../mainApp/AddTask";
 
 const TEMPO_STATUS = {
   STARTED: "STARTED",

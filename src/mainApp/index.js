@@ -1,5 +1,6 @@
 const types = {
   ADD_TASK: "ADD_TASK",
+  CHANGE_TASK_NAME: "CHANGE_TASK_NAME",
   SET_ACTIVE_TASK: "SET_ACTIVE_TASK",
   REMOVE_TASK: "REMOVE_TASK",
   UPDATE_TOTALS: "UPDATE_TOTALS",
@@ -28,6 +29,20 @@ export const reducer = (state = initialState, action) => {
           }
         ]
       };
+    case types.CHANGE_TASK_NAME: {
+      const { taskName, id } = action.payload;
+      const newList = state.tasks.map((task, idx) => {
+        if (idx === id) {
+          task.name = taskName;
+        }
+        return task;
+      });
+
+      return {
+        ...state,
+        tasks: [...newList]
+      };
+    }
     case types.SET_ACTIVE_TASK:
       return {
         ...state,
@@ -70,6 +85,10 @@ export const actions = {
   addTask: taskName => ({
     type: types.ADD_TASK,
     payload: taskName
+  }),
+  changeTaskName: (taskName, id) => ({
+    type: types.CHANGE_TASK_NAME,
+    payload: { taskName, id }
   }),
   remove: index => ({
     type: types.REMOVE_TASK,

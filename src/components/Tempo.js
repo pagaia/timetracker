@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ViewTruckedTime from "./ViewTruckedTime";
 import PropTypes from "prop-types";
 import { PlayLink, PauseLink, StopLink, RemoveLink } from "./ButtonLink";
+import TaskName from "./TaskName";
+import AddTask from "../mainApp/AddTask";
 
 const TEMPO_STATUS = {
   STARTED: "STARTED",
@@ -80,15 +82,9 @@ class Tempo extends Component {
     this.stop();
   }
 
-  renderStart() {
-    if (!this.state.status) {
-      return <PlayLink action={this.start} />;
-    }
-    return null;
-  }
-
   renderContinue() {
     if (
+      !this.state.status ||
       TEMPO_STATUS.PAUSED === this.state.status ||
       TEMPO_STATUS.STOPPED === this.state.status
     ) {
@@ -104,27 +100,17 @@ class Tempo extends Component {
     return null;
   }
 
-  renderStop() {
-    if (
-      TEMPO_STATUS.STARTED === this.state.status ||
-      TEMPO_STATUS.PAUSED === this.state.status
-    ) {
-      return <StopLink action={this.stop} />;
-    }
-    return null;
-  }
-
   render() {
     const { time } = this.state;
     return (
       <div className="tempo">
-        <span>{this.props.name}:</span>
-        <ViewTruckedTime seconds={time} />
-        {this.renderStart()}
-        {this.renderContinue()}
-        {this.renderPause()}
-        {this.renderStop()}
-        <RemoveLink action={this.props.remove} />
+        <TaskName action={this.props.editTaskName} name={this.props.name} />
+        <div>
+          {this.renderContinue()}
+          {this.renderPause()}
+          <RemoveLink action={this.props.remove} />
+          <ViewTruckedTime seconds={time} />
+        </div>
       </div>
     );
   }
@@ -146,6 +132,10 @@ Tempo.propTypes = {
   /**
    * action to remove the task tracker from the list
    */
-  remove: PropTypes.func
+  remove: PropTypes.func,
+  /**
+   * function to call on changing the task name
+   */
+  editTaskName: PropTypes.func
 };
 export default Tempo;

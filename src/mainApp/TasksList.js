@@ -1,10 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import Tempo from "../components/Tempo";
 import { actions } from "./index";
 import { bindActionCreators } from "redux";
-import { Button } from "@material-ui/core";
-import ViewTruckedTime from "../components/ViewTruckedTime";
+import TotalTime from "./TotalTime";
 
 function TasksList({
   tasks,
@@ -14,7 +13,8 @@ function TasksList({
   forceUpdateFn,
   forceUpdate,
   updateTotalTime,
-  totalTime
+  totalTime,
+  changeTaskName
 }) {
   if (!tasks.length) {
     return (
@@ -33,30 +33,17 @@ function TasksList({
       remove={() => removeTask(idx)}
       forceUpdate={forceUpdate}
       updateTotalTime={time => updateTotalTime(idx, time)}
+      editTaskName={v => changeTaskName(v, idx)}
     />
   ));
 
-  const renderUpdateTotal = () => {
-    return (
-      tasks.length && (
-        <div className="total">
-          <span>
-            <Button variant="contained" color="primary" onClick={forceUpdateFn}>
-              Update time
-            </Button>
-          </span>
-          <span> Time worked:</span>
-          <ViewTruckedTime seconds={totalTime} />
-        </div>
-      )
-    );
-  };
-
   return (
-    <div className="tasks">
-      {list}
-      {renderUpdateTotal()}
-    </div>
+    <Fragment>
+      <div className="tasks">{list}</div>
+      {tasks.length && (
+        <TotalTime action={forceUpdateFn} totalTime={totalTime} />
+      )}
+    </Fragment>
   );
 }
 
@@ -73,7 +60,8 @@ const mapDispatchToProps = dispatch =>
       setActiveTask: actions.setActiveTask,
       removeTask: actions.remove,
       forceUpdateFn: actions.forceUpdate,
-      updateTotalTime: actions.updateTotalTime
+      updateTotalTime: actions.updateTotalTime,
+      changeTaskName: actions.changeTaskName
     },
     dispatch
   );

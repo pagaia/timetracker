@@ -4,8 +4,11 @@ import "./App.css";
 import ShowTime from "./mainApp/ShowTime";
 import AddTask from "./mainApp/AddTask";
 import TasksList from "./mainApp/TasksList";
+import { reduxForm } from "redux-form";
+import { FORM_NAME } from "./mainApp/constant";
 
-const App = props => {
+
+let App = props => {
   return (
     <div className="App">
       <header className="App-header">
@@ -23,4 +26,8 @@ const App = props => {
   );
 };
 
+App = reduxForm({
+  // a unique name for the form
+  form: FORM_NAME
+})(App);
 export default App;

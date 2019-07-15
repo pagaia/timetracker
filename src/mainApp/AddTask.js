@@ -6,13 +6,12 @@ import { actions } from "./index";
 import { bindActionCreators } from "redux";
 import { reduxForm, change } from "redux-form";
 import Button from "@material-ui/core/Button";
-
-const ADD_TASK_FORM = "ADD_TASK_FORM";
+import { FORM_NAME } from "./constant";
 
 let AddTask = props => {
   const addTask = e => {
     e.preventDefault();
-    props.changeField(ADD_TASK_FORM,"newtask", "");
+    props.changeField(FORM_NAME,"newtask", "");
     props.addTask(props.newtask);
   };
   return (
@@ -40,17 +39,13 @@ AddTask.propTypes = {
   action: PropTypes.func
 };
 
-AddTask = reduxForm({
-  // a unique name for the form
-  form: ADD_TASK_FORM
-})(AddTask);
 
 const mapStateToProps = state => ({
   tasks: state.mainReducer.tasks,
   newtask:
-    state.form[ADD_TASK_FORM] &&
-    state.form[ADD_TASK_FORM].values &&
-    state.form[ADD_TASK_FORM].values.newtask
+    state.form[FORM_NAME] &&
+    state.form[FORM_NAME].values &&
+    state.form[FORM_NAME].values.newtask
 });
 
 const mapDispatchToProps = dispatch =>

@@ -4,9 +4,11 @@ export const logger = store => next => action => {
     (sessionStorage.getItem("log") &&
       JSON.parse(sessionStorage.getItem("log"))) ||
     [];
-  console.group(action.type);
+  const time = new Date();
+  const now = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}:${time.getMilliseconds()} `;
+  console.group(action.type, ` @ ${now}`);
   const oldState = store.getState();
-  console.log("current state", oldState);
+  console.log("current state ", oldState);
   console.info(`dispatching`, action);
   let result = next(action);
   const newState = store.getState();
@@ -28,6 +30,8 @@ export const crashReporter = store => next => action => {
   try {
     return next(action);
   } catch (err) {
+    const time = new Date();
+    const now = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}:${time.getMilliseconds()} `;
     console.error("Caught an exception!", err);
     let error =
       (sessionStorage.getItem("error") &&

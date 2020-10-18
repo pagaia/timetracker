@@ -32,7 +32,7 @@ export const crashReporter = store => next => action => {
   } catch (err) {
     const time = new Date();
     const now = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}:${time.getMilliseconds()} `;
-    console.error("Caught an exception!", err);
+    console.error("Caught an exception!", now, err);
     let error =
       (sessionStorage.getItem("error") &&
         JSON.parse(sessionStorage.getItem("error"))) ||

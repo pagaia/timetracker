@@ -8,7 +8,7 @@ const store = createStore(
   rootReducer,
   applyMiddleware(
     reduxLogger,
-   // logger,
+    // logger,
     crashReporter
   )
 );

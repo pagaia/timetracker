@@ -14,14 +14,11 @@ function TasksList({
   forceUpdate,
   updateTotalTime,
   totalTime,
-  changeTaskName
+  changeTaskName,
 }) {
   if (!tasks.length) {
-    return (
-      <div>
-        <h2>Please add a task to start counting the time</h2>
-      </div>
-    );
+    return null;
+    return <h2>Please add a task to start counting the time</h2>;
   }
 
   const list = tasks.map((task, idx) => (
@@ -32,8 +29,8 @@ function TasksList({
       activateTask={() => setActiveTask(idx)}
       remove={() => removeTask(idx)}
       forceUpdate={forceUpdate}
-      updateTotalTime={time => updateTotalTime(idx, time)}
-      editTaskName={v => changeTaskName(v, idx)}
+      updateTotalTime={(time) => updateTotalTime(idx, time)}
+      editTaskName={(v) => changeTaskName(v, idx)}
     />
   ));
 
@@ -47,26 +44,23 @@ function TasksList({
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   tasks: state.mainReducer.tasks,
   activeTask: state.mainReducer.activeTask,
   forceUpdate: state.mainReducer.forceUpdate,
-  totalTime: state.mainReducer.totalTime
+  totalTime: state.mainReducer.totalTime,
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       setActiveTask: actions.setActiveTask,
       removeTask: actions.remove,
       forceUpdateFn: actions.forceUpdate,
       updateTotalTime: actions.updateTotalTime,
-      changeTaskName: actions.changeTaskName
+      changeTaskName: actions.changeTaskName,
     },
     dispatch
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasksList);
+export default connect(mapStateToProps, mapDispatchToProps)(TasksList);

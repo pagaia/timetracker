@@ -21,6 +21,7 @@ class TaskName extends Component {
   };
 
   handleChange = (e) => {
+    console.log("new value?: ", e)
     this.setState({ name: e.target.value });
   };
 
@@ -41,7 +42,7 @@ class TaskName extends Component {
             <Field
               name="newName"
               component={TextField}
-              value={this.state.name}
+              //value={this.state.name}
              // onChange={this.handleChange}
               label="Change name"
             />
@@ -90,8 +91,9 @@ TaskName.propTypes = {
   action: PropTypes.func,
 };
 
-TaskName = reduxForm({
-  // a unique name for the form
-  form: CHANGE_NAME_FORM,
-})(TaskName);
+// TaskName = reduxForm({
+//   // a unique name for the form
+//   form: CHANGE_NAME_FORM,
+// })(TaskName);
+
 export default TaskName;

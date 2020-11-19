@@ -27,8 +27,8 @@ let Application = (props) => {
       </header>
       <main>
         {userContext.user ? (
-          <Fragment>
-            <Switch>
+          <div id='login' className="fade-in">
+          <Switch>
               <Route path="/profile">
                 <ProfilePage />
               </Route>
@@ -36,9 +36,9 @@ let Application = (props) => {
                 <MainPage />
               </Route>
             </Switch>
-          </Fragment>
+          </div>
         ) : (
-          <div>
+          <div  id='loggedIn' className="fade-in">
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
             <Switch>

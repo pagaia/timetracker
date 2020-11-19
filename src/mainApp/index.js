@@ -86,10 +86,12 @@ export const actions = {
     type: types.ADD_TASK,
     payload: taskName
   }),
-  changeTaskName: (taskName, id) => ({
+  changeTaskName: (taskName, id) => {
+    console.log(taskName, id)
+    return ({
     type: types.CHANGE_TASK_NAME,
     payload: { taskName, id }
-  }),
+  })},
   remove: index => ({
     type: types.REMOVE_TASK,
     payload: index
